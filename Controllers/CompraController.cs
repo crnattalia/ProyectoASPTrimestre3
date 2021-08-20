@@ -50,7 +50,7 @@ namespace ProyectoASPTrimestre3.Controllers
         {
             using (var db = new inventario2021Entities())
             {
-                return PartialView(db.cliente.ToList());
+                return PartialView(db.usuario.ToList());
             }
         }
         public ActionResult Create()
