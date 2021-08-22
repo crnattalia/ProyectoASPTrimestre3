@@ -7,47 +7,46 @@ using ProyectoASPTrimestre3.Models;
 
 namespace ProyectoASPTrimestre3.Controllers
 {
-    public class UsuarioRolController : Controller
+    public class Producto_CompraController : Controller
     {
-        // GET: UsuarioRol
+        // GET: Producto_Compra
         public ActionResult Index()
         {
             using (var db = new inventario2021Entities())
             {
-                return View(db.usuariorol.ToList());
+                return View(db.producto_compra.ToList());
             }
         }
 
-        public static string nombreUsuario(int idUsuario)
+        public static string NombreProducto(int idProducto)
         {
             using (var db = new inventario2021Entities())
             {
-                return db.usuario.Find(idUsuario).nombre;
+                return db.producto.Find(idProducto).nombre;
             }
         }
 
-        public ActionResult ListarUsuario()
+        public ActionResult ListarProducto()
         {
             using (var db = new inventario2021Entities())
             {
-                return PartialView(db.usuario.ToList());
+                return PartialView(db.producto.ToList());
             }
         }
 
-        public static string nombreRol(int idRol)
+        public static int TotalCompra(int idTotal)
         {
             using (var db = new inventario2021Entities())
             {
-                return db.roles.Find(idRol).descripcion;
+                return db.compra.Find(idTotal).id;
             }
-
         }
 
-        public ActionResult ListarRol()
+        public ActionResult ListarTotalCompra()
         {
             using (var db = new inventario2021Entities())
             {
-                return PartialView(db.roles.ToList());
+                return PartialView(db.compra.ToList());
             }
         }
 
@@ -58,70 +57,71 @@ namespace ProyectoASPTrimestre3.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(usuariorol usuarioRol)
+
+        public ActionResult Create(producto_compra producto_Compra)
         {
             if (!ModelState.IsValid)
                 return View();
+
             try
             {
                 using (var db = new inventario2021Entities())
                 {
-                    db.usuariorol.Add(usuarioRol);
+                    db.producto_compra.Add(producto_Compra);
                     db.SaveChanges();
                     return RedirectToAction("Index");
                 }
-            }
-            catch (Exception ex)
+            }catch(Exception ex)
             {
-                ModelState.AddModelError(" ", "error " + ex);
+                ModelState.AddModelError(" ", "Error " + ex);
                 return View();
             }
         }
 
-        public ActionResult Details(int id)
+        public ActionResult Details(int idPcompra)
         {
-            using (var db =new inventario2021Entities())
+            try
             {
-                var findUserRol = db.usuariorol.Find(id);
-                return View(findUserRol);
-
+                using (var db = new inventario2021Entities())
+                {
+                    return View(db.producto_compra.Find(idPcompra));
+                }
+            }catch(Exception ex)
+            {
+                ModelState.AddModelError(" ", "Error " + ex);
+                return View();
             }
         }
 
         public ActionResult Edit(int id)
         {
-            try
+            using (var db = new inventario2021Entities())
             {
-                using (var db = new inventario2021Entities())
-                {
-                    usuariorol rolEdit = db.usuariorol.Where(a => a.id == id).FirstOrDefault();
-                    return View(rolEdit);
-                }
-            }catch(Exception ex)
-            {
-                ModelState.AddModelError("", "error " + ex);
-                return View();
+                producto_compra pCompraEdit = db.producto_compra.Where(a => a.id == id).FirstOrDefault();
+                return View(pCompraEdit);
             }
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
 
-        public ActionResult Edit(usuariorol rolEdit)
+        public ActionResult Edit(producto_compra pCompraEdit)
         {
             try
             {
                 using (var db = new inventario2021Entities())
                 {
-                    var oldrol = db.usuariorol.Find(rolEdit.id);
-                    oldrol.idUsuario = rolEdit.idUsuario;
-                    oldrol.idRol = rolEdit.idRol;
+                    var oldpCompra = db.producto_compra.Find(pCompraEdit.id);
+                    oldpCompra.id_compra = pCompraEdit.id_compra;
+                    oldpCompra.id_producto = pCompraEdit.id_producto;
+                    oldpCompra.cantidad = pCompraEdit.cantidad;
+
                     db.SaveChanges();
                     return RedirectToAction("Index");
                 }
             }catch(Exception ex)
             {
-                ModelState.AddModelError("", "error " + ex);
+                ModelState.AddModelError(" ", "Error " + ex);
                 return View();
             }
         }
@@ -132,16 +132,17 @@ namespace ProyectoASPTrimestre3.Controllers
             {
                 using (var db = new inventario2021Entities())
                 {
-                    usuariorol usuariorol = db.usuariorol.Find(id);
-                    db.usuariorol.Remove(usuariorol);
+                    producto_compra producto_Compra = db.producto_compra.Find(id);
+                    db.producto_compra.Remove(producto_Compra);
                     db.SaveChanges();
                     return RedirectToAction("Index");
                 }
             }catch(Exception ex)
             {
-                ModelState.AddModelError("", "error " + ex);
+                ModelState.AddModelError(" ", "Error " + ex);
                 return View();
             }
         }
+
     }
 }

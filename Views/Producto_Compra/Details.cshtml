@@ -1,0 +1,42 @@
+﻿@model ProyectoASPTrimestre3.Models.producto_compra
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Detalles</h2>
+
+<div>
+    <h4>producto_compra</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.cantidad)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cantidad)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.compra.id)
+        </dt>
+
+        <dd>
+            @ProyectoASPTrimestre3.Controllers.Producto_CompraController.TotalCompra(Model.id_compra)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.producto.nombre)
+        </dt>
+
+        <dd>
+            @ProyectoASPTrimestre3.Controllers.Producto_CompraController.NombreProducto(Model.id_producto)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
