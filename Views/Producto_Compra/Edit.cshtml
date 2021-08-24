@@ -1,17 +1,16 @@
 ﻿@model ProyectoASPTrimestre3.Models.producto_compra
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Editar Producto Compra";
 }
 
-<h2>Edit</h2>
+<h2>Editar Producto Compra</h2>
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>producto_compra</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.id)

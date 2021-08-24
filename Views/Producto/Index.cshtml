@@ -1,27 +1,27 @@
 ﻿@model IEnumerable<ProyectoASPTrimestre3.Models.producto>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Lista Producto";
 }
 
-<h2>Index</h2>
+<h2>Lista Producto</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Crear Producto", "Create")
 </p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.nombre)
+            Nombre Producto:
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.percio_unitario)
+            Precio Unitario:
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.descripcion)
+            Descripcion Producto:
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.cantidad)
+            Cantidad:
         </th>
         <th>
             Proveedor
@@ -47,9 +47,9 @@
             @ProyectoASPTrimestre3.Controllers.ProductoController.nombreProveedor(item.id_proveedor)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.id }, new {@class="linkDelete"})
+            @Html.ActionLink("Editar", "Edit", new { id=item.id }) |
+            @Html.ActionLink("Detalles", "Details", new { id=item.id }) |
+            @Html.ActionLink("Eliminar", "Delete", new { id=item.id }, new {@class="linkDelete"})
         </td>
     </tr>
 }
