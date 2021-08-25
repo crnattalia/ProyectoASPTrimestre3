@@ -1,17 +1,16 @@
 ﻿@model ProyectoASPTrimestre3.Models.roles
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Detalles Roles";
 }
 
-<h2>Details</h2>
+<h2>Detalles Roles</h2>
 
 <div>
-    <h4>roles</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.descripcion)
+            Descripcion Rol:
         </dt>
 
         <dd>
@@ -21,6 +20,6 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Editar", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Ver todos", "Index")
 </p>

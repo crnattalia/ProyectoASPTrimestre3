@@ -1,21 +1,21 @@
 ﻿@model IEnumerable<ProyectoASPTrimestre3.Models.usuariorol>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Usuario Rol";
 }
 
-<h2>Index</h2>
+<h2>Usuario Rol</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Crear Rol", "Create")
 </p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.roles.descripcion)
+            Descripcion Rol:
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.usuario.nombre)
+            Nombre Usuario:
         </th>
         <th></th>
     </tr>
@@ -30,9 +30,9 @@
                 @ProyectoASPTrimestre3.Controllers.UsuarioRolController.nombreUsuario(item.idUsuario)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
-                @Html.ActionLink("Details", "Details", new { id = item.id }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.id }, new { @class = "linkDelete" })
+                @Html.ActionLink("Editar", "Edit", new { id = item.id }) |
+                @Html.ActionLink("Detalles", "Details", new { id = item.id }) |
+                @Html.ActionLink("Eliminar", "Delete", new { id = item.id }, new { @class = "linkDelete" })
             </td>
         </tr>
     }

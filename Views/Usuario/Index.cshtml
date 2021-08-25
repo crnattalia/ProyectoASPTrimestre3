@@ -12,16 +12,16 @@
 <table class="table">
     <tr>
         <th>
-            Nombre Usuario
+            Nombre Usuario:
         </th>
         <th>
-            Apellido
+            Apellido:
         </th>
         <th>
-            Fecha de Nacimiento
+            Fecha de Nacimiento:
         </th>
         <th>
-            Correo Electronico
+            Correo Electronico:
         </th>
         <th></th>
     </tr>
@@ -44,7 +44,7 @@
             <td>
                 @Html.ActionLink("Editar", "Edit", new { id = item.id }) |
                 @Html.ActionLink("Detalles", "Details", new { id = item.id }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.id }, new { @class = "linkDelete" })
+                @Html.ActionLink("Eliminar", "Delete", new { id = item.id }, new { @class = "linkDelete" })
             </td>
         </tr>
     }

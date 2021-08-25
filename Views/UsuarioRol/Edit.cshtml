@@ -1,33 +1,32 @@
 ﻿@model ProyectoASPTrimestre3.Models.usuariorol
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Editar Rol";
 }
 
-<h2>Edit</h2>
+<h2>Editar Rol</h2>
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>usuariorol</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.id)
 
         <div class="form-group">
-            @Html.LabelFor(model => model.idUsuario, "idUsuario", htmlAttributes: new { @class = "control-label col-md-2" })
+            <label class="control-label col-md-2" for="idUsuario">Nombre Usuario:</label>
             <div class="col-md-10">
-                @Html.Action("ListarDescripcionRol")
+                @Html.Action("ListarUsuario")
                 @Html.ValidationMessageFor(model => model.idUsuario, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.idRol, "idRol", htmlAttributes: new { @class = "control-label col-md-2" })
+            <label class="control-label col-md-2" for="idRol">Nombre Rol:</label>
             <div class="col-md-10">
-                @Html.Action("ListarUsuario")
+                @Html.Action("ListarRol")
                 @Html.ValidationMessageFor(model => model.idRol, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -41,5 +40,5 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Ver todos", "Index")
 </div>

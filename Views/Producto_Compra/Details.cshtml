@@ -1,17 +1,16 @@
 ﻿@model ProyectoASPTrimestre3.Models.producto_compra
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Detalles Producto Compra";
 }
 
-<h2>Detalles</h2>
+<h2>Detalles Producto Compra</h2>
 
 <div>
-    <h4>producto_compra</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.cantidad)
+            Cantidad:
         </dt>
 
         <dd>
@@ -19,7 +18,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.compra.id)
+            Total Compra:
         </dt>
 
         <dd>
@@ -27,7 +26,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.producto.nombre)
+            Nombre Producto:
         </dt>
 
         <dd>
@@ -37,6 +36,6 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Editar", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Ver todos", "Index")
 </p>

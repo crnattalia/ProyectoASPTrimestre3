@@ -1,17 +1,16 @@
 ﻿@model ProyectoASPTrimestre3.Models.proveedor
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Detalles Proovedor";
 }
 
-<h2>Details</h2>
+<h2>Detalles Proovedor</h2>
 
 <div>
-    <h4>proveedor</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.nombre)
+            Nombre Proovedor:
         </dt>
 
         <dd>
@@ -19,7 +18,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.direccion)
+            Direccion:
         </dt>
 
         <dd>
@@ -27,7 +26,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.telefono)
+            Telefono:
         </dt>
 
         <dd>
@@ -35,7 +34,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.nombre_contacto)
+           Nombre Contacto:
         </dt>
 
         <dd>
@@ -45,6 +44,6 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Editar", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Ver lista", "Index")
 </p>

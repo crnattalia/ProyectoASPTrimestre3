@@ -11,24 +11,24 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.roles.descripcion)
+            Nombre Rol:
         </dt>
 
         <dd>
-            @ProyectoASPTrimestre3.Controllers.UsuarioRolController.DescripcionRol(Model.idUsuario)
+            @ProyectoASPTrimestre3.Controllers.UsuarioRolController.nombreRol(Model.idRol)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.usuario.nombre)
+            Nombre Usuario:
         </dt>
 
         <dd>
-            @ProyectoASPTrimestre3.Controllers.UsuarioRolController.nombreUsuario(Model.idRol)
+            @ProyectoASPTrimestre3.Controllers.UsuarioRolController.nombreUsuario(Model.idUsuario)
         </dd>
 
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Editar", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Ver todos", "Index")
 </p>
