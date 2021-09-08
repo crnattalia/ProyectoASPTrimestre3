@@ -1,0 +1,29 @@
+﻿@model IEnumerable<ProyectoASPTrimestre3.Models.EjReporte>
+@{
+    ViewBag.Title = "EjReporte";
+}
+
+<h2>Reporte</h2>
+
+<table class="table">
+    <tr>
+        <th>Proveedor</th>
+        <th>Telefono</th>
+        <th>Direccion Proveedor</th>
+        <th>Producto</th>
+        <th>Precio Producto</th>
+    </tr>
+    @foreach(var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.nombreProveedor)</td>
+                    <td>@Html.DisplayFor(modelItem => item.telefonoProveedor)</td>
+                    <td>@Html.DisplayFor(modelItem => item.direccionProveedor)</td>
+                    <td>@Html.DisplayFor(modelItem => item.nombreProducto)</td>
+                    <td>@Html.DisplayFor(modelItem => item.precioProducto)</td>
+                </tr>
+            }
+</table>
+
+
+

@@ -131,5 +131,29 @@ namespace ProyectoASPTrimestre3.Controllers
             }
         }
 
+        public ActionResult EjReporte()
+        {
+            try
+            {
+                var db = new inventario2021Entities();
+                var query = from tabProveedor in db.proveedor
+                            join tabProducto in db.producto on tabProveedor.id equals tabProducto.id_proveedor
+                            select new EjReporte
+                            {
+                                nombreProveedor = tabProveedor.nombre,
+                                telefonoProveedor = tabProveedor.telefono,
+                                direccionProveedor = tabProveedor.direccion,
+                                nombreProducto = tabProducto.nombre,
+                                precioProducto = tabProducto.percio_unitario
+                            };
+                return View(query);
+            }
+            catch(Exception ex)
+            {
+                ModelState.AddModelError(" ", "Error " + ex);
+                return View();
+            }
+        }
+
     }
 }

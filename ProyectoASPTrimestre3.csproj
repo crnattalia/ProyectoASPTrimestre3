@@ -141,6 +141,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\EjReporte.cs" />
     <Compile Include="Models\cliente.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -284,6 +285,7 @@
     <Content Include="Views\Producto_Compra\Create.cshtml" />
     <Content Include="Views\Usuario\Login.cshtml" />
     <Content Include="Views\Shared\Plantilla.cshtml" />
+    <Content Include="Views\Producto\EjReporte.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
