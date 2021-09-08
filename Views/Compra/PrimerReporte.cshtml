@@ -1,0 +1,28 @@
+﻿@model IEnumerable<ProyectoASPTrimestre3.Models.PrimerReporte>
+
+@{
+    ViewBag.Title = "PrimerReporte";
+}
+
+<h2>Reporte Ventas Usuario</h2>
+
+<table class="table">
+    <tr>
+        <th>Nombre</th>
+        <th>Apellido</th>
+        <th>Correo Electronico</th>
+        @*<th>Rol</th>*@
+        <th>Ventas</th>
+    </tr>
+    @foreach(var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.nombreUsuario)</td>
+                    <td>@Html.DisplayFor(modelItem => item.apellidoUsuario)</td>
+                    <td>@Html.DisplayFor(modelItem => item.correoElectronico)</td>
+                    @*<td>@Html.DisplayFor(modelItem => item.rol)</td>*@
+                    <td>@Html.DisplayFor(modelItem => item.ventas)</td>
+                </tr>
+            }
+</table>
+

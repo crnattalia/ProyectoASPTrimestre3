@@ -150,5 +150,30 @@ namespace ProyectoASPTrimestre3.Controllers
                 return View();
             }
         }
+
+        public ActionResult PrimerReporte()
+        {
+            try
+            {
+                var db = new inventario2021Entities();
+                var query = from tabUsuario in db.usuario
+                            join tabCompra in db.compra on tabUsuario.id equals tabCompra.id
+                            //join tabRoles in db.roles on tabUsuario.id equals tabRoles.id
+                            select new PrimerReporte
+                            {
+                                nombreUsuario = tabUsuario.nombre,
+                                apellidoUsuario = tabUsuario.apellido,
+                                correoElectronico = tabUsuario.email,
+                                ventas = tabCompra.total,
+                                //rol = tabRoles.descripcion
+                            };
+                return View(query);
+            }
+            catch(Exception ex)
+            {
+                ModelState.AddModelError(" ", "Error " + ex);
+                return View();
+            }
+        }
     }
 }
