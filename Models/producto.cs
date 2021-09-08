@@ -33,6 +33,7 @@ namespace ProyectoASPTrimestre3.Models
         [Required(ErrorMessage = "El campo es obligatorio")]
         [Range(1, 100)]
         public int cantidad { get; set; }
+        [Required]
         public int id_proveedor { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
