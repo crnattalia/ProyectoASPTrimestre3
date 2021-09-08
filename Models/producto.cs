@@ -11,7 +11,7 @@ namespace ProyectoASPTrimestre3.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
     public partial class producto
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -22,9 +22,16 @@ namespace ProyectoASPTrimestre3.Models
         }
     
         public int id { get; set; }
+        [Required(ErrorMessage = "El campo es obligatorio")]
+        [StringLength(14, ErrorMessage ="Máximo 14 caracteres")]
         public string nombre { get; set; }
+        [Required(ErrorMessage = "El campo es obligatorio")]
         public int percio_unitario { get; set; }
+        [Required(ErrorMessage = "El campo es obligatorio")]
+        [StringLength(50, ErrorMessage ="Máximo 50 caracteres")]
         public string descripcion { get; set; }
+        [Required(ErrorMessage = "El campo es obligatorio")]
+        [Range(1, 100)]
         public int cantidad { get; set; }
         public int id_proveedor { get; set; }
     

@@ -11,6 +11,7 @@ namespace ProyectoASPTrimestre3.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     
     public partial class proveedor
     {
@@ -21,9 +22,16 @@ namespace ProyectoASPTrimestre3.Models
         }
     
         public int id { get; set; }
+        [Required(ErrorMessage ="El campo es obligatorio")]
+        [StringLength(14, ErrorMessage ="Máximo 14 caracteres")]
         public string nombre { get; set; }
+        [Required(ErrorMessage = "El campo es obligatorio")]        
         public string direccion { get; set; }
+        [Required(ErrorMessage = "El campo es obligatorio")]
+        [DataType(DataType.PhoneNumber)]
         public string telefono { get; set; }
+        [Required(ErrorMessage = "El campo es obligatorio")]
+        [StringLength(14, ErrorMessage ="Máximo 14 caracteres")]
         public string nombre_contacto { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
