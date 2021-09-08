@@ -8,21 +8,25 @@
 
 <table class="table">
     <tr>
-        <th>Nombre</th>
-        <th>Apellido</th>
-        <th>Correo Electronico</th>
-        @*<th>Rol</th>*@
-        <th>Ventas</th>
+        <th>Nombre Usuario</th>
+        <th>Apellido Usuario</th>
+        <th>Total Compra</th>
+        <th>Fecha Compra</th>
+        <th>Nombre Cliente</th>
+        <th>Email Cliente</th>
     </tr>
-    @foreach(var item in Model)
-            {
-                <tr>
-                    <td>@Html.DisplayFor(modelItem => item.nombreUsuario)</td>
-                    <td>@Html.DisplayFor(modelItem => item.apellidoUsuario)</td>
-                    <td>@Html.DisplayFor(modelItem => item.correoElectronico)</td>
-                    @*<td>@Html.DisplayFor(modelItem => item.rol)</td>*@
-                    <td>@Html.DisplayFor(modelItem => item.ventas)</td>
-                </tr>
-            }
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@Html.DisplayFor(modelItem => item.nombreUsuario)</td>
+            <td>@Html.DisplayFor(modelItem => item.apellidoUsuario)</td>
+            <td>@Html.DisplayFor(modelItem => item.totalCompra)</td>
+            <td>@Html.DisplayFor(modelItem => item.fecha)</td>
+            <td>@Html.DisplayFor(modelItem => item.nombreCliente)</td>
+            <td>@Html.DisplayFor(modelItem => item.email)</td>
+        </tr>
+    }
 </table>
+
+@Html.ActionLink("Descargar Reporte", "pdfReporte");
 

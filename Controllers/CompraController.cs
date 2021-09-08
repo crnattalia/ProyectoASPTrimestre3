@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using ProyectoASPTrimestre3.Models;
+using Rotativa;
 
 namespace ProyectoASPTrimestre3.Controllers
 {
@@ -156,16 +157,18 @@ namespace ProyectoASPTrimestre3.Controllers
             try
             {
                 var db = new inventario2021Entities();
-                var query = from tabUsuario in db.usuario
-                            join tabCompra in db.compra on tabUsuario.id equals tabCompra.id
-                            //join tabRoles in db.roles on tabUsuario.id equals tabRoles.id
+                var query = from tabCompra in db.compra
+                            join tabUsuario in db.usuario on tabCompra.id_usuario equals tabUsuario.id
+                            join tabCliente in db.cliente on tabCompra.id_cliente equals tabCliente.id
+   
                             select new PrimerReporte
                             {
                                 nombreUsuario = tabUsuario.nombre,
                                 apellidoUsuario = tabUsuario.apellido,
-                                correoElectronico = tabUsuario.email,
-                                ventas = tabCompra.total,
-                                //rol = tabRoles.descripcion
+                                totalCompra = tabCompra.total,
+                                fecha = tabCompra.fecha,
+                                nombreCliente = tabCliente.nombre,
+                                email = tabCliente.email
                             };
                 return View(query);
             }
@@ -174,6 +177,11 @@ namespace ProyectoASPTrimestre3.Controllers
                 ModelState.AddModelError(" ", "Error " + ex);
                 return View();
             }
+        }
+
+        public ActionResult pdfReporte()
+        {
+            return new ActionAsPdf("PrimerReporte") { FileName = "reporte.pdf" };
         }
     }
 }

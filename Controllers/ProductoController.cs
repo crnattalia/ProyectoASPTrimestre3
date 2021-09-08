@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using ProyectoASPTrimestre3.Models;
+using Rotativa;
 
 namespace ProyectoASPTrimestre3.Controllers
 {
@@ -153,6 +154,11 @@ namespace ProyectoASPTrimestre3.Controllers
                 ModelState.AddModelError(" ", "Error " + ex);
                 return View();
             }
+        }
+
+        public ActionResult pdfReporte()
+        {
+            return new ActionAsPdf("EjReporte") { FileName = "reporte.pdf" };
         }
 
     }

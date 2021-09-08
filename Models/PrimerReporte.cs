@@ -9,9 +9,9 @@ namespace ProyectoASPTrimestre3.Models
     {
         public String nombreUsuario { get; set; }
         public String apellidoUsuario { get; set; }
-        public String correoElectronico { get; set; }
-        public int ventas { get; set; }
-        //public string rol { get; set; }
-
+        public int totalCompra { get; set; }
+        public DateTime fecha { get; set; }
+        public String nombreCliente { get; set; }
+        public String email { get; set; }
     }
 }
