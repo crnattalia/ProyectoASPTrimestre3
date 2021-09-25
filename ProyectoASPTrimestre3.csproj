@@ -297,6 +297,7 @@
     <Content Include="Views\Producto\EjReporte.cshtml" />
     <Content Include="Views\Compra\PrimerReporte.cshtml" />
     <Content Include="Views\Proveedor\UploadCSV.cshtml" />
+    <Content Include="Uploads\Datos Proveedor.csv" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -119,46 +119,47 @@ namespace ProyectoASPTrimestre3.Controllers
                 return View();
             }
         }
-        public ActionResult UploadCSV()
+
+        public ActionResult uploadCSV()
         {
             return View();
         }
 
         [HttpPost]
-        public ActionResult UploadCSV(HttpPostedFileBase fileForm)
+        public ActionResult uploadCSV(HttpPostedFileBase fileForm)
         {
             try
             {
+
                 //string para guardar la ruta
                 string filePath = string.Empty;
 
-                //crear condicion para saber si llegó o no el archivo
-                if(fileForm != null)
+                //condicion para saber si el archivo llego
+                if (fileForm != null)
                 {
-                    //crear la ruta de la carpeta donde se va a guardar el archivo
+                    //ruta de la carpeta que guardara el archivo
                     string path = Server.MapPath("~/Uploads/");
 
-                    //Condición para saber si la carpeta Upload existe
-                    if(!Directory.Exists(path))
+                    //condicion para saber si la carpeta uploads existe
+                    if (!Directory.Exists(path))
                     {
                         Directory.CreateDirectory(path);
                     }
 
-                    //Obtener el nombre del archivo
+                    //obtener el nombre del archivo
                     filePath = path + Path.GetFileName(fileForm.FileName);
 
-                    //Obtener la extensión del archivo
+                    //obtener la extension del archivo
                     string extension = Path.GetExtension(fileForm.FileName);
 
-                    //Guardar el archivo
+                    //guardar el archivo
                     fileForm.SaveAs(filePath);
 
-                    //Guardar información del archivo csv
                     string csvData = System.IO.File.ReadAllText(filePath);
 
                     foreach (string row in csvData.Split('\n'))
                     {
-                        if(string.IsNullOrEmpty(row))
+                        if (!string.IsNullOrEmpty(row))
                         {
                             var newProveedor = new proveedor
                             {
@@ -176,10 +177,13 @@ namespace ProyectoASPTrimestre3.Controllers
                         }
                     }
                 }
+
                 return View();
-            }catch(Exception ex)
+
+            }
+            catch (Exception ex)
             {
-                ModelState.AddModelError(" ", "Error " + ex);
+                ModelState.AddModelError("", "error " + ex);
                 return View();
             }
         }
