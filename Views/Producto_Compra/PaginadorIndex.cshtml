@@ -1,0 +1,59 @@
+﻿@model ProyectoASPTrimestre3.Models.ModeloIndex
+
+@{
+    ViewBag.Title = "Lista Productos Compra";
+}
+
+<h2>Lista Productos Compra</h2>
+
+<p>
+    @Html.ActionLink("Crear producto compra", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Cantidad:
+        </th>
+        <th>
+            Id Compra:
+        </th>
+        <th>
+            Nombre Producto:
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var producto_compra in Model.Producto_Compras)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => producto_compra.cantidad)
+            </td>
+            <td>
+                @ProyectoASPTrimestre3.Controllers.Producto_CompraController.TotalCompra(producto_compra.id_compra)
+            </td>
+            <td>
+                @ProyectoASPTrimestre3.Controllers.Producto_CompraController.NombreProducto(producto_compra.id_producto)
+            </td>
+            <td>
+                @Html.ActionLink("Editar", "Edit", new { id = producto_compra.id }) |
+                @Html.ActionLink("Detalles", "Details", new { id = producto_compra.id }) |
+                @Html.ActionLink("Eliminar", "Delete", new { id = producto_compra.id }, new { @class = "linkDelete" })
+            </td>
+        </tr>
+    }
+
+</table>
+
+@section scripts{
+    <script>
+        $(".linkDelete").click(function (event) {
+            if (!confirm('¿Está seguro de eliminar?')) {
+                event.preventDefault();
+            }
+        })
+    </script>
+
+}
+
+@{ Html.RenderPartial("Paginador", Model); }

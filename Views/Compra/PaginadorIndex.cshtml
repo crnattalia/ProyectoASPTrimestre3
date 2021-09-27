@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ProyectoASPTrimestre3.Models.compra>
+﻿@model ProyectoASPTrimestre3.Models.ModeloIndex
 
 @{
     ViewBag.Title = "Compra - Lista";
@@ -26,28 +26,29 @@
         <th></th>
     </tr>
 
-    @foreach (var item in Model)
+    @foreach (var compra in Model.Compras)
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.fecha)
+                @Html.DisplayFor(modelItem => compra.fecha)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.total)
+                @Html.DisplayFor(modelItem => compra.total)
+                @Html.DisplayFor(modelItem => compra.total)
             </td>
             <td>
-                @ProyectoASPTrimestre3.Controllers.CompraController.nombreUsuario(item.id_usuario)
+                @ProyectoASPTrimestre3.Controllers.CompraController.nombreUsuario(compra.id_usuario)
             </td>
             <td>
-                @ProyectoASPTrimestre3.Controllers.CompraController.nombreCliente(item.id_cliente)
+                @ProyectoASPTrimestre3.Controllers.CompraController.nombreCliente(compra.id_cliente)
             </td>
             <td>
-                @Html.ActionLink("Editar", "Edit", new { id = item.id }) |
-                @Html.ActionLink("Detalles", "Details", new { id = item.id }) |
-                @Html.ActionLink("Eliminar", "Delete", new { id = item.id }, new { @class = "linkDelete" })
+                @Html.ActionLink("Editar", "Edit", new { id = compra.id }) |
+                @Html.ActionLink("Detalles", "Details", new { id = compra.id }) |
+                @Html.ActionLink("Eliminar", "Delete", new { id = compra.id }, new { @class = "linkDelete" })
             </td>
         </tr>
-     }
+    }
 
 </table>
 
@@ -57,7 +58,7 @@
 
 @section scripts{
     <script>
-        $(".linkDelete").click(function (event){
+        $(".linkDelete").click(function (event) {
             if (!confirm('¿Está seguro de eliminar?')) {
                 event.preventDefault();
             }
@@ -65,3 +66,6 @@
     </script>
 
 }
+
+@{ Html.RenderPartial("Paginador", Model); }
+

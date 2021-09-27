@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.IO;
+using System.Web.Routing;
 using System.Web.Mvc;
 using ProyectoASPTrimestre3.Models;
 using Rotativa;
@@ -11,13 +13,13 @@ namespace ProyectoASPTrimestre3.Controllers
     public class CompraController : Controller
     {
         // GET: Compra
-        public ActionResult Index()
-        {
-            using (var db = new inventario2021Entities())
-            {
-                return View(db.compra.ToList());
-            }
-        }
+        //public ActionResult Index()
+        //{
+        //    using (var db = new inventario2021Entities())
+        //    {
+        //        return View(db.compra.ToList());
+        //    }
+        //}
 
         //Mostrar nombre del cliente
         public static string nombreCliente(int idCliente)
@@ -73,7 +75,7 @@ namespace ProyectoASPTrimestre3.Controllers
                 {
                     db.compra.Add(compra);
                     db.SaveChanges();
-                    return RedirectToAction("Index");
+                    return RedirectToAction("PaginadorIndex");
                 }
             }
             catch (Exception ex)
@@ -123,7 +125,7 @@ namespace ProyectoASPTrimestre3.Controllers
                     oldCompra.id_usuario = compraEdit.id_usuario;
                     oldCompra.id_cliente = compraEdit.id_cliente;
                     db.SaveChanges();
-                    return RedirectToAction("Index");
+                    return RedirectToAction("PaginadorIndex");
                 }
             }catch(Exception ex)
             {
@@ -142,7 +144,7 @@ namespace ProyectoASPTrimestre3.Controllers
                     compra compra = db.compra.Find(id);
                     db.compra.Remove(compra);
                     db.SaveChanges();
-                    return RedirectToAction("Index");
+                    return RedirectToAction("PaginadorIndex");
                 }
             }
             catch (Exception ex)
@@ -182,6 +184,35 @@ namespace ProyectoASPTrimestre3.Controllers
         public ActionResult pdfReporte()
         {
             return new ActionAsPdf("PrimerReporte") { FileName = "reporte.pdf" };
+        }
+
+        public ActionResult PaginadorIndex(int pagina = 1)
+        {
+            try
+            {
+                var cantidadRegistros = 5;
+
+                using (var db = new inventario2021Entities())
+                {
+                    var compras = db.compra.OrderBy(x => x.id).Skip((pagina - 1) * cantidadRegistros).Take(cantidadRegistros).ToList();
+
+                    var totalRegistros = db.compra.Count();
+                    var modelo = new ModeloIndex();
+                    modelo.Compras = compras;
+                    modelo.ActualPage = pagina;
+                    modelo.Total = totalRegistros;
+                    modelo.RecordsPage = cantidadRegistros;
+                    modelo.valueQueryString = new RouteValueDictionary();
+
+                    return View(modelo);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", "error " + ex);
+                return View();
+            }
         }
     }
 }

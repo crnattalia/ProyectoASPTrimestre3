@@ -4,19 +4,21 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using ProyectoASPTrimestre3.Models;
+using System.IO;
+using System.Web.Routing;
 
 namespace ProyectoASPTrimestre3.Controllers
 {
     public class UsuarioRolController : Controller
     {
         // GET: UsuarioRol
-        public ActionResult Index()
-        {
-            using (var db = new inventario2021Entities())
-            {
-                return View(db.usuariorol.ToList());
-            }
-        }
+        //public ActionResult Index()
+        //{
+        //    using (var db = new inventario2021Entities())
+        //    {
+        //        return View(db.usuariorol.ToList());
+        //    }
+        //}
 
         public static string nombreUsuario(int idUsuario)
         {
@@ -68,7 +70,7 @@ namespace ProyectoASPTrimestre3.Controllers
                 {
                     db.usuariorol.Add(usuarioRol);
                     db.SaveChanges();
-                    return RedirectToAction("Index");
+                    return RedirectToAction("PaginadorIndex");
                 }
             }
             catch (Exception ex)
@@ -117,7 +119,7 @@ namespace ProyectoASPTrimestre3.Controllers
                     oldrol.idUsuario = rolEdit.idUsuario;
                     oldrol.idRol = rolEdit.idRol;
                     db.SaveChanges();
-                    return RedirectToAction("Index");
+                    return RedirectToAction("PaginadorIndex");
                 }
             }catch(Exception ex)
             {
@@ -135,9 +137,38 @@ namespace ProyectoASPTrimestre3.Controllers
                     usuariorol usuariorol = db.usuariorol.Find(id);
                     db.usuariorol.Remove(usuariorol);
                     db.SaveChanges();
-                    return RedirectToAction("Index");
+                    return RedirectToAction("PaginadorIndex");
                 }
             }catch(Exception ex)
+            {
+                ModelState.AddModelError("", "error " + ex);
+                return View();
+            }
+        }
+
+        public ActionResult PaginadorIndex(int pagina = 1)
+        {
+            try
+            {
+                var cantidadRegistros = 5;
+
+                using (var db = new inventario2021Entities())
+                {
+                    var usuarioroles = db.usuariorol.OrderBy(x => x.id).Skip((pagina - 1) * cantidadRegistros).Take(cantidadRegistros).ToList();
+
+                    var totalRegistros = db.usuariorol.Count();
+                    var modelo = new ModeloIndex();
+                    modelo.Usuarioroles = usuarioroles;
+                    modelo.ActualPage = pagina;
+                    modelo.Total = totalRegistros;
+                    modelo.RecordsPage = cantidadRegistros;
+                    modelo.valueQueryString = new RouteValueDictionary();
+
+                    return View(modelo);
+                }
+
+            }
+            catch (Exception ex)
             {
                 ModelState.AddModelError("", "error " + ex);
                 return View();

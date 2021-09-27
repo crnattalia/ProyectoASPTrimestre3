@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ProyectoASPTrimestre3.Models.cliente>
+﻿@model ProyectoASPTrimestre3.Models.ModeloIndex
 
 @{
     ViewBag.Title = "Lista de Clientes";
@@ -23,22 +23,22 @@
         <th></th>
     </tr>
 
-    @foreach (var item in Model)
+    @foreach (var cliente in Model.Clientes)
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.nombre)
+                @Html.DisplayFor(modelItem => cliente.nombre)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.documento)
+                @Html.DisplayFor(modelItem => cliente.documento)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.email)
+                @Html.DisplayFor(modelItem => cliente.email)
             </td>
             <td>
-                @Html.ActionLink("Editar", "Edit", new { id = item.id }) |
-                @Html.ActionLink("Detalles", "Details", new { id = item.id }) |
-                @Html.ActionLink("Eliminar", "Delete", new { id = item.id }, new { @class = "linkDelete" })
+                @Html.ActionLink("Editar", "Edit", new { id = cliente.id }) |
+                @Html.ActionLink("Detalles", "Details", new { id = cliente.id }) |
+                @Html.ActionLink("Eliminar", "Delete", new { id = cliente.id }, new { @class = "linkDelete" })
             </td>
         </tr>
     }
@@ -47,7 +47,7 @@
 
 @section scripts{
     <script>
-        $(".linkDelete").click(function (event){
+        $(".linkDelete").click(function (event) {
             if (!confirm('¿Está seguro de eliminar?')) {
                 event.preventDefault();
             }
@@ -55,3 +55,7 @@
     </script>
 
 }
+
+@{ Html.RenderPartial("Paginador", Model); }
+
+

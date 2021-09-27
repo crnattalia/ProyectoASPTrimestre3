@@ -1,25 +1,65 @@
-﻿@model ProyectoASPTrimestre3.Models.UsuarioIndex
+﻿@model ProyectoASPTrimestre3.Models.ModeloIndex
 
 @{
-    ViewBag.Title = "Paginador Index";
+    ViewBag.Title = "Usuario - Lista";
 }
 
-<h2>Paginador Index</h2>
+<h2>Lista Usuarios</h2>
 
-<table class="table table-striped">
+<p>
+    @Html.ActionLink("Crear Usuario", "Create")
+</p>
+<table class="table">
     <tr>
-        <th>Nombre</th>
-        <th>Apellido</th>
-        <th>Email</th>
+        <th>
+            Nombre Usuario:
+        </th>
+        <th>
+            Apellido:
+        </th>
+        <th>
+            Fecha de Nacimiento:
+        </th>
+        <th>
+            Correo Electronico:
+        </th>
+        <th></th>
     </tr>
+
     @foreach (var usuario in Model.Usuarios)
     {
         <tr>
-            <td>@usuario.nombre</td>
-            <td>@usuario.apellido</td>
-            <td>@usuario.email</td>
+            <td>
+                @Html.DisplayFor(modelItem => usuario.nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => usuario.apellido)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => usuario.fecha_nacimiento)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => usuario.email)
+            </td>
+            <td>
+                @Html.ActionLink("Editar", "Edit", new { id = usuario.id }) |
+                @Html.ActionLink("Detalles", "Details", new { id = usuario.id }) |
+                @Html.ActionLink("Eliminar", "Delete", new { id = usuario.id }, new { @class = "linkDelete" })
+            </td>
         </tr>
     }
+
 </table>
+
+@section scripts{
+    <script>
+        $(".linkDelete").click(function (event){
+            if (!confirm('¿Está seguro de eliminar?')) {
+                event.preventDefault();
+            }
+        })
+    </script>
+
+}
 
 @{ Html.RenderPartial("Paginador", Model); }

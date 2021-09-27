@@ -5,19 +5,21 @@ using System.Web;
 using System.Web.Mvc;
 using ProyectoASPTrimestre3.Models;
 using Rotativa;
+using System.IO;
+using System.Web.Routing;
 
 namespace ProyectoASPTrimestre3.Controllers
 {
     public class ProductoController : Controller
     {
         // GET: Producto
-        public ActionResult Index()
-        {
-            using (var db = new inventario2021Entities())
-            {
-                return View(db.producto.ToList());
-            }
-        }
+        //public ActionResult Index()
+        //{
+        //    using (var db = new inventario2021Entities())
+        //    {
+        //        return View(db.producto.ToList());
+        //    }
+        //}
 
         //Muestra el nombre del proveedor en lugar del id
         public static string nombreProveedor (int idProveedor)
@@ -56,7 +58,7 @@ namespace ProyectoASPTrimestre3.Controllers
                 {
                     db.producto.Add(producto);
                     db.SaveChanges();
-                    return RedirectToAction("Index");
+                    return RedirectToAction("PaginadorIndex");
                 }
             }catch(Exception ex)
             {
@@ -105,7 +107,7 @@ namespace ProyectoASPTrimestre3.Controllers
                     oldProducto.cantidad = productoEdit.cantidad;
                     oldProducto.id_proveedor = productoEdit.id_proveedor;
                     db.SaveChanges();
-                    return RedirectToAction("Index");
+                    return RedirectToAction("PaginadorIndex");
                 }
             }catch(Exception ex)
             {
@@ -123,7 +125,7 @@ namespace ProyectoASPTrimestre3.Controllers
                     producto producto = db.producto.Find(id);
                     db.producto.Remove(producto);
                     db.SaveChanges();
-                    return RedirectToAction("Index");
+                    return RedirectToAction("PaginadorIndex");
                 }
             }catch(Exception ex)
             {
@@ -159,6 +161,35 @@ namespace ProyectoASPTrimestre3.Controllers
         public ActionResult pdfReporte()
         {
             return new ActionAsPdf("EjReporte") { FileName = "reporte.pdf" };
+        }
+
+        public ActionResult PaginadorIndex(int pagina = 1)
+        {
+            try
+            {
+                var cantidadRegistros = 5;
+
+                using (var db = new inventario2021Entities())
+                {
+                    var productos = db.producto.OrderBy(x => x.id).Skip((pagina - 1) * cantidadRegistros).Take(cantidadRegistros).ToList();
+
+                    var totalRegistros = db.producto.Count();
+                    var modelo = new ModeloIndex();
+                    modelo.Productos = productos;
+                    modelo.ActualPage = pagina;
+                    modelo.Total = totalRegistros;
+                    modelo.RecordsPage = cantidadRegistros;
+                    modelo.valueQueryString = new RouteValueDictionary();
+
+                    return View(modelo);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", "error " + ex);
+                return View();
+            }
         }
 
     }

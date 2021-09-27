@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ProyectoASPTrimestre3.Models.roles>
+﻿@model ProyectoASPTrimestre3.Models.ModeloIndex
 
 @{
     ViewBag.Title = "Lista Roles";
@@ -17,16 +17,16 @@
         <th></th>
     </tr>
 
-    @foreach (var item in Model)
+    @foreach (var roles in Model.Roles)
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.descripcion)
+                @Html.DisplayFor(modelItem => roles.descripcion)
             </td>
             <td>
-                @Html.ActionLink("Editar", "Edit", new { id = item.id }) |
-                @Html.ActionLink("Detalles", "Details", new { id = item.id }) |
-                @Html.ActionLink("Eliminar", "Delete", new { id = item.id }, new { @class = "linkDelete" })
+                @Html.ActionLink("Editar", "Edit", new { id = roles.id }) |
+                @Html.ActionLink("Detalles", "Details", new { id = roles.id }) |
+                @Html.ActionLink("Eliminar", "Delete", new { id = roles.id }, new { @class = "linkDelete" })
             </td>
         </tr>
     }
@@ -35,7 +35,7 @@
 
 @section scripts{
     <script>
-        $(".linkDelete").click(function (event){
+        $(".linkDelete").click(function (event) {
             if (!confirm('¿Está seguro de eliminar?')) {
                 event.preventDefault();
             }
@@ -43,3 +43,5 @@
     </script>
 
 }
+
+@{ Html.RenderPartial("Paginador", Model); }

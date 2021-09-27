@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using ProyectoASPTrimestre3.Models;
+using System.IO;
+using System.Web.Routing;
 
 namespace ProyectoASPTrimestre3.Controllers
 {
@@ -126,5 +128,6 @@ namespace ProyectoASPTrimestre3.Controllers
                 return View();
             }
         }
+
     }
 }

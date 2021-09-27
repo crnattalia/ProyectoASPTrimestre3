@@ -17,14 +17,14 @@ namespace ProyectoASPTrimestre3.Controllers
         [Authorize]
         // GET: Usuario
         //Consultar tabla - retorna todos los usuarios
-        public ActionResult Index()
-        {
-            using (var db = new inventario2021Entities()) 
-            {
-             return View(db.usuario.ToList());
-            }
+        //public ActionResult Index()
+        //{
+        //    using (var db = new inventario2021Entities()) 
+        //    {
+        //     return View(db.usuario.ToList());
+        //    }
             
-        }
+        //}
 
         //Mostrar formulario registrar un usuario
         public ActionResult Create()
@@ -48,7 +48,7 @@ namespace ProyectoASPTrimestre3.Controllers
                     usuario.password = UsuarioController.HashSHA1(usuario.password);
                     db.usuario.Add(usuario);
                     db.SaveChanges();
-                    return RedirectToAction("Index");
+                    return RedirectToAction("PaginadorIndex");
                 }
             }catch(Exception ex)
             {
@@ -93,7 +93,7 @@ namespace ProyectoASPTrimestre3.Controllers
                     var findUser = db.usuario.Find(id);
                     db.usuario.Remove(findUser);
                     db.SaveChanges();
-                    return RedirectToAction("Index");
+                    return RedirectToAction("PaginadorIndex");
                 }
             }
             catch(Exception ex)
@@ -139,7 +139,7 @@ namespace ProyectoASPTrimestre3.Controllers
                     user.password = editUser.password;
 
                     db.SaveChanges();
-                    return RedirectToAction("Index"); 
+                    return RedirectToAction("PaginadorIndex"); 
 
                 }
             }catch(Exception ex)
@@ -170,7 +170,7 @@ namespace ProyectoASPTrimestre3.Controllers
                     {
                         FormsAuthentication.SetAuthCookie(userLogin.email, true);
                         Session["user"] = userLogin;
-                        return RedirectToAction("Index");
+                        return RedirectToAction("PaginadorIndex");
                     }
                     else
                     {
@@ -263,7 +263,7 @@ namespace ProyectoASPTrimestre3.Controllers
                     var usuarios = db.usuario.OrderBy(x => x.id).Skip((pagina - 1) * cantidadRegistros).Take(cantidadRegistros).ToList();
 
                     var totalRegistros = db.usuario.Count();
-                    var modelo = new UsuarioIndex();
+                    var modelo = new ModeloIndex();
                     modelo.Usuarios = usuarios;
                     modelo.ActualPage = pagina;
                     modelo.Total = totalRegistros;

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ProyectoASPTrimestre3.Models.proveedor>
+﻿@model ProyectoASPTrimestre3.Models.ModeloIndex
 
 @{
     ViewBag.Title = "Lista Proveedores";
@@ -26,34 +26,34 @@
         <th></th>
     </tr>
 
-    @foreach (var item in Model)
+    @foreach (var proveedor in Model.Proveedores)
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.nombre)
+                @Html.DisplayFor(modelItem => proveedor.nombre)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.direccion)
+                @Html.DisplayFor(modelItem => proveedor.direccion)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.telefono)
+                @Html.DisplayFor(modelItem => proveedor.telefono)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.nombre_contacto)
+                @Html.DisplayFor(modelItem => proveedor.nombre_contacto)
             </td>
             <td>
-                @Html.ActionLink("Editar", "Edit", new { id = item.id }) |
-                @Html.ActionLink("Detalles", "Details", new { id = item.id }) |
-                @Html.ActionLink("Eliminar", "Delete", new { id = item.id }, new { @class = "linkDelete" })
+                @Html.ActionLink("Editar", "Edit", new { id = proveedor.id }) |
+                @Html.ActionLink("Detalles", "Details", new { id = proveedor.id }) |
+                @Html.ActionLink("Eliminar", "Delete", new { id = proveedor.id }, new { @class = "linkDelete" })
             </td>
         </tr>
-     }
+    }
 
 </table>
 
 @section scripts{
     <script>
-        $(".linkDelete").click(function (event){
+        $(".linkDelete").click(function (event) {
             if (!confirm('¿Está seguro de eliminar?')) {
                 event.preventDefault();
             }
@@ -61,4 +61,6 @@
     </script>
 
 }
+
+@{ Html.RenderPartial("Paginador", Model); }
 

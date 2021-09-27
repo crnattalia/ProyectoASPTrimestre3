@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using ProyectoASPTrimestre3.Models;
+using System.Web.Routing;
 
 namespace ProyectoASPTrimestre3.Controllers
 {
@@ -12,13 +13,13 @@ namespace ProyectoASPTrimestre3.Controllers
     {
         // GET: Proveedor
         //Consultar tabla - retorna todos los usuarios
-        public ActionResult Index()
-        {
-            using (var db = new inventario2021Entities())
-            {
-                return View(db.proveedor.ToList());
-            }
-        }
+        //public ActionResult Index()
+        //{
+        //    using (var db = new inventario2021Entities())
+        //    {
+        //        return View(db.proveedor.ToList());
+        //    }
+        //}
 
         //Mostrar formulario - registrar usuario
         public ActionResult Create()
@@ -39,7 +40,7 @@ namespace ProyectoASPTrimestre3.Controllers
                 {
                     db.proveedor.Add(proveedor);
                     db.SaveChanges();
-                    return RedirectToAction("Index");
+                    return RedirectToAction("PaginadorIndex");
                 }
             }
             catch (Exception ex)
@@ -69,7 +70,7 @@ namespace ProyectoASPTrimestre3.Controllers
                     var findUser = db.proveedor.Find(id);
                     db.proveedor.Remove(findUser);
                     db.SaveChanges();
-                    return RedirectToAction("Index");
+                    return RedirectToAction("PaginadorIndex");
                 }
             }catch(Exception ex)
             {
@@ -111,7 +112,7 @@ namespace ProyectoASPTrimestre3.Controllers
                     proveedor.direccion = editProveedor.direccion;
 
                     db.SaveChanges();
-                    return RedirectToAction("Index");
+                    return RedirectToAction("PaginadorIndex");
                 }
             }catch(Exception ex)
             {
@@ -179,6 +180,35 @@ namespace ProyectoASPTrimestre3.Controllers
                 }
 
                 return View();
+
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", "error " + ex);
+                return View();
+            }
+        }
+
+        public ActionResult PaginadorIndex(int pagina = 1)
+        {
+            try
+            {
+                var cantidadRegistros = 5;
+
+                using (var db = new inventario2021Entities())
+                {
+                    var proveedores = db.proveedor.OrderBy(x => x.id).Skip((pagina - 1) * cantidadRegistros).Take(cantidadRegistros).ToList();
+
+                    var totalRegistros = db.proveedor.Count();
+                    var modelo = new ModeloIndex();
+                    modelo.Proveedores = proveedores;
+                    modelo.ActualPage = pagina;
+                    modelo.Total = totalRegistros;
+                    modelo.RecordsPage = cantidadRegistros;
+                    modelo.valueQueryString = new RouteValueDictionary();
+
+                    return View(modelo);
+                }
 
             }
             catch (Exception ex)
