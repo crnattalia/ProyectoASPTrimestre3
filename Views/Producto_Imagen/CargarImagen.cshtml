@@ -1,4 +1,5 @@
-﻿<h2>Cargar Imagen Producto</h2>
+﻿@model IEnumerable<ProyectoASPTrimestre3.Models.producto_imagen>
+<h2>Cargar Imagen Producto</h2>
 
 @using (Html.BeginForm("CargarImagen", "Producto_Imagen", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
@@ -6,7 +7,8 @@
     <div class="form-group">
         <label class="control-label col-md-2">Producto</label>
         <div class="col-md-10">
-            <input type="number" name="producto" class="form-control" />
+            @Html.Action("ListarProducto")
+            @*@Html.ValidationMessageFor(model => model.producto_imagen, "", new { @class = "text-danger" })*@
         </div>
     </div>
 
