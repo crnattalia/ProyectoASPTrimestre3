@@ -302,6 +302,7 @@
     <Content Include="Views\Proveedor\PaginadorIndex.cshtml" />
     <Content Include="Views\Roles\PaginadorIndex.cshtml" />
     <Content Include="Views\UsuarioRol\PaginadorIndex.cshtml" />
+    <Content Include="Views\Producto_Imagen\CargarImagen.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

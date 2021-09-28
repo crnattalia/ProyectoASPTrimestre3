@@ -36,97 +36,64 @@ namespace ProyectoASPTrimestre3.Controllers
             }
         }
 
-        public ActionResult Create()
+        public ActionResult CargarImagen()
         {
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-
-        public ActionResult Create(producto_imagen producto_Imagen)
+        public ActionResult CargarImagen(int producto, HttpPostedFileBase imagen)
         {
-            if (!ModelState.IsValid)
-                return View();
-
             try
             {
+                //string para guardar la ruta
+                string filePath = string.Empty;
+                string nameFile = "";
+
+                //condicion para saber si el archivo llego
+                if (imagen != null)
+                {
+                    //ruta de la carpeta que guardara el archivo
+                    string path = Server.MapPath("~/Uploads/Imagenes/");
+
+                    //condicion para saber si la carpeta uploads existe
+                    if (!Directory.Exists(path))
+                    {
+                        Directory.CreateDirectory(path);
+                    }
+
+                    nameFile = Path.GetFileName(imagen.FileName);
+
+                    //obtener el nombre del archivo
+                    filePath = path + Path.GetFileName(imagen.FileName);
+
+                    //obtener la extension del archivo
+                    string extension = Path.GetExtension(imagen.FileName);
+
+                    //guardar el archivo
+                    imagen.SaveAs(filePath);
+                }
+
                 using (var db = new inventario2021Entities())
                 {
-                    db.producto_imagen.Add(producto_Imagen);
+                    var imagenProducto = new producto_imagen();
+                    imagenProducto.id_producto = producto;
+                    imagenProducto.imagen = "/Uploads/Imagenes/" + nameFile;
+                    db.producto_imagen.Add(imagenProducto);
                     db.SaveChanges();
-                    return RedirectToAction("Index");
+
                 }
-            }catch(Exception ex)
+
+                return View();
+
+            }
+            catch (Exception ex)
             {
-                ModelState.AddModelError(" ", "Error " + ex);
+                ModelState.AddModelError("", "error " + ex);
                 return View();
             }
-        }
 
-        public ActionResult Details(int id)
-        {
-            try
-            {
-                using (var db = new inventario2021Entities())
-                {
-                    return View(db.producto_imagen.Find(id));
-                }
-            }catch(Exception ex)
-            {
-                ModelState.AddModelError(" ", "Error" + ex);
-                return View();
-            }
-        }
-
-        public ActionResult Edit(int id)
-        {
-            using (var db = new inventario2021Entities())
-            {
-                producto_imagen iproductoEdit = db.producto_imagen.Where(a => a.id == id).FirstOrDefault();
-                return View(iproductoEdit);
-            }
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-
-        public ActionResult Edit(producto_imagen iproductoEdit)
-        {
-            try
-            {
-                using (var db = new inventario2021Entities())
-                {
-                    var oldiProducto = db.producto_imagen.Find(iproductoEdit.id);
-                    oldiProducto.id_producto = iproductoEdit.id_producto;
-                    oldiProducto.imagen = iproductoEdit.imagen;
-                    oldiProducto.id = iproductoEdit.id;
-                    db.SaveChanges();
-                    return RedirectToAction("Index");
-                }
-            }catch(Exception ex)
-            {
-                ModelState.AddModelError(" ", "Error " + ex);
-                return View();
-            }
-        }
-
-        public ActionResult Delete(int id)
-        {
-            try
-            {
-                using (var db = new inventario2021Entities())
-                {
-                    producto_imagen producto_imagen = db.producto_imagen.Find(id);
-                    db.producto_imagen.Remove(producto_imagen);
-                    db.SaveChanges();
-                    return RedirectToAction("Index");
-                }
-            }catch(Exception ex)
-            {
-                ModelState.AddModelError(" ", "Error " + ex);
-                return View();
-            }
         }
 
     }

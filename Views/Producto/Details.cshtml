@@ -48,10 +48,15 @@
         <dd>
             @ProyectoASPTrimestre3.Controllers.ProductoController.nombreProveedor(Model.id_proveedor)
         </dd>
-
+        <dt>
+            Imagen
+        </dt>
+        <dd>
+            <img class="img-responsive" src="@Url.Content("~/" + ViewBag.imagen)" alt="Image"/> 
+        </dd>
     </dl>
 </div>
 <p>
     @Html.ActionLink("Editar", "Edit", new { id = Model.id }) |
-    @Html.ActionLink("Ver todos", "Index")
+    @Html.ActionLink("Ver todos", "PaginadorIndex")
 </p>

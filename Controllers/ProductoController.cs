@@ -69,18 +69,14 @@ namespace ProyectoASPTrimestre3.Controllers
 
         public ActionResult Details(int id)
         {
-            try
+            using (var db = new inventario2021Entities())
             {
-                using (var db = new inventario2021Entities())
-                {
-                    return View(db.producto.Find(id));
-                }
-            }catch(Exception ex)
-            {
-                ModelState.AddModelError("", "error " + ex);
-                return View();
+                var producto = db.producto.Find(id);
+                var imagen = db.producto_imagen.Where(e => e.id_producto == producto.id).FirstOrDefault();
+                ViewBag.imagen = imagen.imagen;
+                return View(producto);
             }
-        }
+        }  
 
         public ActionResult Edit(int id)
         {
