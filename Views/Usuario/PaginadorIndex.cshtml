@@ -47,9 +47,12 @@
                 @Html.ActionLink("Eliminar", "Delete", new { id = usuario.id }, new { @class = "linkDelete" })
             </td>
         </tr>
-    }
-
+     }
 </table>
+
+<div>
+    @Html.ActionLink("Subir Archivo CSV", "UploadCSV")
+</div>
 
 @section scripts{
     <script>

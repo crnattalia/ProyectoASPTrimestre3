@@ -5,10 +5,10 @@
 
 <h2>Cargar CSV</h2>
 
-@using (Html.BeginForm("uploadCSV", "Usuario", FormMethod.Post, new { enctype = "multipart/form-data" }))
+@using (Html.BeginForm("uploadCSV", "Cliente", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     <div class="form-group">
-        <label class="control-label" col-md-2>Cargar CSV</label>
+        <label class="control-label col-md-2">Cargar CSV</label>
         <div class="col-md-10">
             <input type="file" name="fileForm" class="form-control" required />
         </div>
@@ -21,8 +21,7 @@
     </div>
 }
 
-    <div>
-        @Html.ActionLink("Ver todos", "PaginadorIndex")
-    </div>
-
+<div>
+    @Html.ActionLink("Ver todos", "PaginadorIndex")
+</div>
 
